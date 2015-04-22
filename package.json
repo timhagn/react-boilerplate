@@ -1,0 +1,49 @@
+{
+  "name": "my-project",
+  "version": "0.0.0",
+  "main": "modules",
+  "scripts": {
+    "build-global": "rm -rf build/global && NODE_ENV=production ./node_modules/.bin/webpack modules/index.js build/global/MyProject.js && NODE_ENV=production COMPRESS=1 ./node_modules/.bin/webpack modules/index.js build/global/MyProject.min.js && echo \"gzipped, the global build is `gzip -c build/global/MyProject.min.js | wc -c` bytes\"",
+    "build-npm": "rm -rf build/npm && babel --experimental -d build/npm/lib ./modules && cp README.md build/npm && find build/npm/lib -type d -name __tests__ | xargs rm -rf && node -p 'p=require(\"./package\");p.main=\"lib\";p.scripts=p.devDependencies=undefined;JSON.stringify(p,null,2)' > build/npm/package.json",
+    "build-examples": "./node_modules/.bin/webpack --context=./examples --config examples/webpack.config.production.js",
+    "examples": "./node_modules/.bin/webpack-dev-server --content-base=./examples --context=./examples --config examples/webpack.config.js -d --hot --inline --display-error-details --colors --history-api-fallback --no-info",
+    "test": "./node_modules/.bin/eslint ./modules; ./node_modules/.bin/karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fubhy/my-project.git"
+  },
+  "author": "Sebastian Siemssen <fubhy@fubhy.com> (https://github.com/fubhy)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fubhy/my-project/issues"
+  },
+  "homepage": "https://github.com/fubhy/my-project",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "react": "^0.13.2"
+  },
+  "devDependencies": {
+    "babel": "^4.7.16",
+    "babel-core": "^4.6.6",
+    "babel-eslint": "^2.0.2",
+    "babel-loader": "^4.0.0",
+    "css-loader": "~0.9.1",
+    "eslint": "^0.17.1",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-cli": "0.0.4",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",
+    "karma-sourcemap-loader": "^0.3.4",
+    "karma-webpack": "^1.5.0",
+    "mocha": "^2.2.1",
+    "react-hot-loader": "^1.1.4",
+    "react-router": "~0.13.1",
+    "rf-changelog": "^0.4.0",
+    "sass-loader": "^0.5.0",
+    "style-loader": "^0.8.3",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "1.7.0"
+  }
+}
