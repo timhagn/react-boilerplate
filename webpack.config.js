@@ -34,7 +34,7 @@ module.exports = {
   }],
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader?experimental' }
+      { test: /\.js$/, loader: 'babel-loader?stage=1&optional=runtime' }
     ]
   },
   node: {
